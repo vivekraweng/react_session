@@ -1,9 +1,10 @@
 import React from 'react';
 
-export const HtmlElement = (props) => {
+export const HtmlElement = ({type, value, onClick, style, className}) => {
     return (
         <>
-            <input type = {props.type} value={props.value} onClick={props.onClick} style={props.style} className={props.className} />
+            <input type = {type} value={value} onClick={onClick} style={style} className={className} />
         </>
     )
 }
+

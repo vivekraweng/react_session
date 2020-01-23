@@ -1,8 +1,13 @@
 //css with out module
 
-// import React from 'react';
+// import React, {useEffect, useState} from 'react';
 // import './App.css';
 // function App() {
+
+//   useEffect(()=>{
+//     console.log('Hellow world')
+//   },[])
+
 //   return (
 //     <>
 //       <h1 className='color_red'>Hello World</h1>
@@ -67,48 +72,149 @@
 
 //state
 
-// import React, {useState} from 'react';
+// import React, {useState, useEffect} from 'react';
 // import { Hello } from './components/HelloName';
 
 // function App() {
-//   const [name, setName] = useState('');
+//   const [name, setName] = useState(0);
+//   const [name2, setName2] = useState(0);
 
-//   const nameValue = (data) => {
-//     setName(data)
-//   }
+//   useEffect(()=>{
+//     setName(name + 1 )
+//   },[name2])
 
 //   return (
 //     <>
 //       <Hello name={name} />
-//       <input type='button' value='click me' onClick={() => nameValue('vivek')} />
+//       <input type='button' value='click me'/>
 //     </>
 //   )
 // }
 
 // export default App;
 
-//Second combine of props and state
+// //Second combine of props and state
+
+// import React, {useState} from 'react';
+// import { HtmlElement } from './components/HtmlElement';
+
+// function App() {
+//   const [value, setValue ] = useState(0);
+
+//   const inc = () => {
+//     setValue(value + 1)
+//   }
+
+//   return (
+//     <>
+//       <HtmlElement 
+        
+//         value={value} 
+//         style={{color:'red', padding: '10px', border: '1px solid #ccc', borderRadius: '1px'}}
+//         className='color_name' 
+//       /> 
+//       <br/>
+//       <HtmlElement type='button' value = 'click me' onClick={inc}  />
+//     </>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+// import React, { Component } from 'react';
+
+// class App extends Component {
+//   render() {
+//     fub
+//     return (
+//       <div>This is my component.</div>
+//     );
+//   }
+// }
+
+// export default App;
+
+// import React from 'react';
+// import './App.css';
+// function App() {
+
+//   const fun = () => {
+//     return (
+//       <>
+//       <h1 className='color_red'>Hello World</h1>
+//       <input type='text' value='Hello world' />
+//       </>
+//     )
+//   }
+
+//   return (
+//     <>
+//     <h1 className='color_red'>Hello World</h1>
+//     {fun}
+//     </>
+//   )
+// }
+// export default App;
+
+
+// forms 
 
 import React, {useState} from 'react';
-import { HtmlElement } from './components/HtmlElement';
 
 function App() {
-  const [value, setValue ] = useState(0);
+  const [formData, SetFormData ] = useState({});
+  const [show, setShow] = useState(false);
 
-  const inc = () => {
-    setValue(value + 1)
+  const submit = () => {
+    if(!show)
+    setShow(true);
+    return (
+      <>
+        <h2>{formData.firstname}</h2>
+        <h2>{formData.lastname}</h2>
+      </>
+    )
+  }
+
+  const onChangeFunction = (e) => {
+    const { name, value } = e.target;
+    SetFormData({ ...formData, [name]: value}); 
   }
 
   return (
     <>
-      <HtmlElement 
+    <form>
+      <input 
         type='text' 
-        value={value} 
-        style={{color:'red', padding: '10px', border: '1px solid #ccc', borderRadius: '1px'}}
-        className='color_name' 
-      /> 
+        name='firstname'
+        value={formData.firstname}
+        onChange={onChangeFunction} 
+      />
       <br/>
-      <HtmlElement type='button' value = 'click me' onClick={inc}  />
+      <input 
+        type='text' 
+        name='lastname'
+        value= {formData.lastname}
+        onChange={onChangeFunction} 
+      />
+      <br/>
+      <input 
+        type='text' 
+        name='email'
+        value= {formData.email}
+        onChange={onChangeFunction} 
+      />
+      <br/>
+      <input type='button' onClick={submit} value = 'click me'  />
+    </form>
+    {
+      show &&
+      submit()
+    }
     </>
   );
 }
