@@ -1,0 +1,57 @@
+.button {
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+
+    &-primary {
+        background-color: #337ab7;
+        color: white;
+    }
+
+    &-success {
+        background-color: #5cb85c;
+        color: white;
+    }
+
+    &-warning {
+        background-color: #f0ad4e;
+        color: white;
+    }
+
+    &-danger {
+        background-color: #d9534f;
+        color: white;
+    }
+
+    //size
+    &-big {
+        padding: 11px 35px;
+        font-size: 28px;
+    }
+
+    &-normal {
+        padding: 5px 27px;
+        font-size: 25px;
+    }
+
+    &-small {
+        padding: 1px 11px;
+        font-size: 19px;
+    }
+
+    //radius
+    &-radius{
+        border-radius: 5px;
+    }
+}
+
+.link {
+    color:#1890ff;
+    &:hover {
+        color: #0c5ca6;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
