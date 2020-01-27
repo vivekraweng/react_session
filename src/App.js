@@ -222,10 +222,248 @@
 // export default App;
 
 
-import React from 'react';
-import { Button } from './components/Button'; 
-function App() {
-  return <Button>Click</Button>
-}
-export default App;
+// import React from 'react';
+// import { Button } from './components/Button';
+// import styles from './App.module.css'; 
+// function App() {
+//   return (
+//     <>
+//       {/* default */}
+//       <Button>Click</Button>
 
+//       {/* colors */}
+//       <br/>
+//       <br/>
+//       <Button color='green'>Click</Button>
+//       <Button className={styles.color_red} color='warning'>Click</Button>
+//       <Button color='success'>Click</Button>
+
+//       {/* size */}
+//       <br/>
+//       <br/>
+//       <Button color='danger' size='big'>Click</Button>
+//       <Button color='warning' size='normal'>Click</Button>
+//       <Button color='success' size='small'>Click</Button>
+
+//       {/* radius */}
+//       <br/>
+//       <br/>
+//       <Button radius='yes' >Click</Button>
+
+//       {/* radius */}
+//       <br/>
+//       <br/>
+//       <Button link >Click</Button>    
+//     </>
+//   )
+// }
+// export default App;
+
+// <==================================================== Class component =================================================>
+
+// simple component
+
+// import React , {Component} from 'react';
+// class App extends Component {
+//   render() {
+//     return ( 
+//       <h1>Hello world</h1> 
+//     );
+//   }
+// }
+
+// export default App;
+
+// With state
+
+// import React , {Component} from 'react';
+// class App extends Component {
+
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       firstName: 'Ram',
+//       lastName: 'Prashad',
+//       email: 'Ram@gmail.com',
+//     };
+//   }
+
+//   render() {
+//     return ( 
+//     <h1>Hello {this.state.firstName} {this.state.lastName}</h1> 
+//     );
+//   }
+// }
+
+// export default App;
+
+// set state 
+
+// import React , {Component} from 'react';
+// class App extends Component {
+
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       firstName: '',
+//       lastName: '',
+//       email: '',
+//       num: []
+//     };
+//   }
+
+//  fun = () => {
+//     this.setState({
+//       firstName: 'Ram',
+//       lastName: 'prashad',
+//       email: 'ram@gmail.com',
+//       num:['1']
+//     })
+//   }
+
+//   fun1 = () => {
+//     this.setState({
+//       num: [...this.state.num, '2']
+//     })
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <button onClick={this.fun} >Click me to set state</button>
+//         <button onClick={this.fun1} >Click to add</button>
+//         {
+//           this.state.firstName &&
+//           this.state.lastName &&
+//           this.state.email &&
+//           this.state.num &&
+//           <div>
+//             <h1>First name:- {this.state.firstName} {this.state.lastName}</h1>
+//             <h1>Last name:- {this.state.lastName}</h1>
+//             <h1>First name:- {this.state.email}</h1>
+//             <h1>Num:- {this.state.num}</h1>
+//           </div>
+//         }
+//       </div> 
+//     );
+//   }
+// }
+
+// export default App;
+
+// button component through rdact class component
+
+// import React, { Component } from 'react';
+// import { Button } from './components/Button';
+// import styles from './App.module.css';
+ 
+// class App extends Component {
+//   render () {
+//     return (
+//       <>
+//         {/* default */}
+//         <Button>Click</Button>
+  
+//         {/* colors */}
+//         <br/>
+//         <br/>
+//         <Button color='green'>Click</Button>
+//         <Button className={styles.color_red} color='warning'>Click</Button>
+//         <Button color='success'>Click</Button>
+  
+//         {/* size */}
+//         <br/>
+//         <br/>
+//         <Button color='danger' size='big'>Click</Button>
+//         <Button color='warning' size='normal'>Click</Button>
+//         <Button color='success' size='small'>Click</Button>
+  
+//         {/* radius */}
+//         <br/>
+//         <br/>
+//         <Button radius='yes' >Click</Button>
+  
+//         {/* radius */}
+//         <br/>
+//         <br/>
+//         <Button link >Click</Button>    
+//       </>
+//     )
+//   }
+// }
+// export default App;
+
+// <================================================================== life cycle component =============================================>
+
+import React, { Component } from 'react';
+
+class App extends Component {
+
+  render () {
+    console.log('render');
+    return (
+      <>
+        {console.log('return')}
+        <h1>{this.state.firstName ? this.state.firstName : 'Loading ....'}</h1>
+        <button onClick={this.fun} >Go to UPDATING phase</button>
+      </>
+    )
+  }
+
+
+  constructor(props) {
+    console.log('constructor')
+    super(props);
+    this.state = {
+      firstName: 'Will',
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    // console.log('getDerivedStateFromProps', state);
+    //   if (props.value !== state.value) {
+    //     return {
+    //       value: props.value,
+    //       ...
+    //     };
+    //   }
+    // return null;
+  }
+
+  shouldComponentUpdate() {
+    console.log('should Component Update')
+    return false;
+  }
+
+  componentDidMount() {
+    console.log('component did mount')
+
+    // setTimeout(()=>{
+    //   this.setState ({
+    //     firstName: 'James'
+    //   });
+    // },2000)
+  }
+
+  getSnapshotBeforeUpdate() {
+    console.log('get Snapshot Before Update')
+  }
+
+  componentDidUpdate() {
+    console.log('component did update');
+    console.log(this.state.firstName);
+  }
+
+  componentWillUnmount() {
+    console.log('component Will Unmount');
+  }
+
+  fun = async () => {
+    await this.setState ({
+      firstName: 'James'
+    })
+    console.log(this.state.firstName);
+  }
+}
+
+export default App;
