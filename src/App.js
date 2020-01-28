@@ -4,14 +4,21 @@
 // import './App.css';
 // function App() {
 
+//   const [name, setName ] =useState(false);
+
 //   useEffect(()=>{
 //     console.log('Hellow world')
-//   },[])
+//   },[name])
 
+//   const fun = () => {
+//     console.log('hiiiiiiiiiiiiii');
+//     setName(true);
+//   }
 //   return (
 //     <>
-//       <h1 className='color_red'>Hello World</h1>
+//       <h1 className='color_red'>{name}</h1>
 //       <input type='text' value='Hello world' />
+//       <button onClick={()=>setName(true)} >click</button>
 //     </>
 //   )
 // }
@@ -351,119 +358,18 @@
 
 // export default App;
 
-// button component through rdact class component
+import React from 'react';
+import { Switch, Route, withRouter } from 'react-router';
+import { LifeCycle } from './containers/LifeCycle';
+import BtnClass from './containers/BtnClass';
+import { HomePage } from './containers/Home';
 
-// import React, { Component } from 'react';
-// import { Button } from './components/Button';
-// import styles from './App.module.css';
- 
-// class App extends Component {
-//   render () {
-//     return (
-//       <>
-//         {/* default */}
-//         <Button>Click</Button>
-  
-//         {/* colors */}
-//         <br/>
-//         <br/>
-//         <Button color='green'>Click</Button>
-//         <Button className={styles.color_red} color='warning'>Click</Button>
-//         <Button color='success'>Click</Button>
-  
-//         {/* size */}
-//         <br/>
-//         <br/>
-//         <Button color='danger' size='big'>Click</Button>
-//         <Button color='warning' size='normal'>Click</Button>
-//         <Button color='success' size='small'>Click</Button>
-  
-//         {/* radius */}
-//         <br/>
-//         <br/>
-//         <Button radius='yes' >Click</Button>
-  
-//         {/* radius */}
-//         <br/>
-//         <br/>
-//         <Button link >Click</Button>    
-//       </>
-//     )
-//   }
-// }
-// export default App;
+const App = () => (
+  <Switch>
+    <Route exact path="/" component={HomePage} />
+    <Route path="/LifeCycle" component={LifeCycle} />
+    <Route path="/BtnClass" component={BtnClass} />
+  </Switch>
+);
 
-// <================================================================== life cycle component =============================================>
-
-import React, { Component } from 'react';
-
-class App extends Component {
-
-  render () {
-    console.log('render');
-    return (
-      <>
-        {console.log('return')}
-        <h1>{this.state.firstName ? this.state.firstName : 'Loading ....'}</h1>
-        <button onClick={this.fun} >Go to UPDATING phase</button>
-      </>
-    )
-  }
-
-
-  constructor(props) {
-    console.log('constructor')
-    super(props);
-    this.state = {
-      firstName: 'Will',
-    };
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    // console.log('getDerivedStateFromProps', state);
-    //   if (props.value !== state.value) {
-    //     return {
-    //       value: props.value,
-    //       ...
-    //     };
-    //   }
-    // return null;
-  }
-
-  shouldComponentUpdate() {
-    console.log('should Component Update')
-    return false;
-  }
-
-  componentDidMount() {
-    console.log('component did mount')
-
-    // setTimeout(()=>{
-    //   this.setState ({
-    //     firstName: 'James'
-    //   });
-    // },2000)
-  }
-
-  getSnapshotBeforeUpdate() {
-    console.log('get Snapshot Before Update')
-  }
-
-  componentDidUpdate() {
-    console.log('component did update');
-    console.log(this.state.firstName);
-  }
-
-  componentWillUnmount() {
-    console.log('component Will Unmount');
-  }
-
-  fun = async () => {
-    await this.setState ({
-      firstName: 'James'
-    })
-    console.log(this.state.firstName);
-  }
-}
-
-export default App;
+export default withRouter((App));
