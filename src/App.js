@@ -168,67 +168,6 @@
 // export default App;
 
 
-// forms 
-
-// import React, {useState} from 'react';
-
-// function App() {
-//   const [formData, SetFormData ] = useState({firstname:'', lastname:'', email:''});
-//   const [show, setShow] = useState(false);
-
-//   const submit = () => {
-//     if(!show)
-//     setShow(true);
-//     return (
-//       <>
-//         <h2>{formData.firstname}</h2>
-//         <h2>{formData.lastname}</h2>
-//       </>
-//     )
-//   }
-
-//   const onChangeFunction = (e) => {
-//     const { name, value } = e.target;
-//     SetFormData({ ...formData, [name]: value}); 
-//   }
-
-//   return (
-//     <>
-//     <form>
-//       <input 
-//         type='text' 
-//         name='firstname'
-//         value={formData.firstname}
-//         onChange={onChangeFunction} 
-//       />
-//       <br/>
-//       <input 
-//         type='text' 
-//         name='lastname'
-//         value= {formData.lastname}
-//         onChange={onChangeFunction} 
-//       />
-//       <br/>
-//       <input 
-//         type='text' 
-//         name='email'
-//         value= {formData.email}
-//         onChange={onChangeFunction} 
-//       />
-//       <br/>
-//       <input type='button' onClick={submit} value = 'click me'  />
-//     </form>
-//     {
-//       show &&
-//       submit()
-//     }
-//     </>
-//   );
-// }
-
-// export default App;
-
-
 // import React from 'react';
 // import { Button } from './components/Button';
 // import styles from './App.module.css'; 
@@ -358,18 +297,37 @@
 
 // export default App;
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Switch, Route, withRouter } from 'react-router';
 import { LifeCycle } from './containers/LifeCycle';
 import BtnClass from './containers/BtnClass';
 import { HomePage } from './containers/Home';
+import { UseRef } from './containers/UseRef';
+import { Form } from './containers/Form';
+import { ContextHookHome } from './containers/contextHook/home';
+import { ContextHookAbout } from './containers/contextHook/about';
+import { UserContext, loginContext } from './userContext';
 
-const App = () => (
-  <Switch>
-    <Route exact path="/" component={HomePage} />
-    <Route path="/LifeCycle" component={LifeCycle} />
-    <Route path="/BtnClass" component={BtnClass} />
-  </Switch>
-);
+const App = () => {
+  const [value, setValue] = useState('Hello from contetext hook');
+  const [loginValue, setLoginValue] = useState('Hello from login context hook');
+  const providedValue = useMemo(()=>([value, setValue]),[value, setValue]);
+  const providedLogonValue = useMemo(()=>([loginValue, setLoginValue]),[loginValue, setLoginValue]);
+  return (
+    <Switch>
+      <UserContext.Provider value={providedValue}>
+        <loginContext.Provider value={providedLogonValue}>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/LifeCycle" component={LifeCycle} />
+          <Route exact path="/BtnClass" component={BtnClass} />
+          <Route exact path="/UseRef" component={UseRef} />
+          <Route exact path="/Form" component={Form} />
+          <Route exact path="/contextHook/home" component={ContextHookHome} />
+          <Route exact path="/contextHook/about" component={ContextHookAbout} />
+        </loginContext.Provider>
+      </UserContext.Provider>
+    </Switch>
+  ) 
+};
 
 export default withRouter((App));
